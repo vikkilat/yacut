@@ -1,1 +1,2 @@
 REGEX = '^[a-zA-Z0-9_]*$'
+LENGTH_CUSTOM_ID = 16

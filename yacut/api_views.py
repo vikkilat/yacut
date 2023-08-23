@@ -4,7 +4,7 @@ from http import HTTPStatus
 from flask import jsonify, request
 
 from . import app, db
-from .constants import REGEX
+from .constants import REGEX, LENGTH_CUSTOM_ID
 from .error_handlers import InvalidAPIUsage
 from .models import URLMap
 from .views import get_unique_short_id
@@ -31,7 +31,7 @@ def add_url():
     if custom_id:
         if URLMap.query.filter_by(short=custom_id).first() is not None:
             raise InvalidAPIUsage(f'Имя "{custom_id}" уже занято.')
-        if not match(REGEX, custom_id) or len(custom_id) > 16:
+        if not match(REGEX, custom_id) or len(custom_id) > LENGTH_CUSTOM_ID:
             raise InvalidAPIUsage(
                 'Указано недопустимое имя для короткой ссылки')
     url_map = URLMap()
